@@ -1,12 +1,12 @@
 
 class Path(object):
     @staticmethod
-    def db_root_dir(dataset,kaggle):
+    def db_root_dir(dataset,kaggle=False):
         if dataset == 'pascal':
             if kaggle:
                 return '../input/voctrainval-2012/vocdevkit/VOCdevkit/VOC2012/'  # folder that contains VOCdevkit/.
             else:
-                return '/Volumes/backup/Users/jcoral/Desktop/VOC/voc2012-segmentation/'
+                return '/Volumes/backup/Users/jcoral/Desktop/DRnetwork_research/voc2012-segmentation/'
         elif dataset == 'sbd':
             if kaggle:
                 return '../input/voctrainval-2012/vocdevkit/VOCdevkit/VOC2012/' # folder that contains dataset/.
@@ -18,7 +18,7 @@ class Path(object):
             if kaggle:
                 return '../input/IDRID_Segmentation/Original_Images/'
             else:
-                return '/Volumes/backup/Users/jcoral/Desktop/python_workspace/DRnetwork_research/IDRID_Segmentation'
+                return '/Volumes/backup/Users/jcoral/Desktop/DRnetwork_research/IDRID_Segmentation'
         else:
             print('Dataset {} not available.'.format(dataset))
             raise NotImplementedError
