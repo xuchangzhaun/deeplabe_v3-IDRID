@@ -13,7 +13,8 @@ from utils.lr_scheduler import LR_Scheduler
 from utils.saver import Saver
 from utils.summaries import TensorboardSummary
 from utils.metrics import Evaluator
-
+import os
+os.environ["CUDA_VISIBLE_DEVICES"]="1,2"
 class Trainer(object):
     def __init__(self, args):
         self.args = args
@@ -134,7 +135,7 @@ class Trainer(object):
         self.evaluator.reset()
         tbar = tqdm(self.val_loader, desc='\r')
         test_loss = 0.0
-        for i, sample in enumerate(tbar):
+        for i, (sample,grade) in enumerate(tbar):
             image, target = sample['image'], sample['label']
             if self.args.cuda:
                 image, target = image.cuda(), target.cuda()
@@ -186,7 +187,7 @@ def main():
     parser.add_argument('--dataset', type=str, default='idrid',
                         choices=['pascal', 'coco', 'cityscapes','idrid'],
                         help='dataset name (default: pascal)')
-    parser.add_argument('--use-sbd', action='store_true', default=True,
+    parser.add_argument('--use-sbd', action='store_true', default=False,
                         help='whether to use SBD dataset (default: True)')
     parser.add_argument('--workers', type=int, default=4,
                         metavar='N', help='dataloader threads')
@@ -252,7 +253,8 @@ def main():
     args.cuda = not args.no_cuda and torch.cuda.is_available()
     if args.cuda:
         try:
-            args.gpu_ids = [int(s) for s in args.gpu_ids.split(',')]
+            args.gpu_ids =[int(s) for s in args.gpu_ids.split(',')]
+            print(args.gpu_ids)
         except ValueError:
             raise ValueError('Argument --gpu_ids must be a comma-separated list of integers only')
 
