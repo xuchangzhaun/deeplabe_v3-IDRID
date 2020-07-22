@@ -16,7 +16,7 @@ class Path(object):
             return '/path/to/datasets/coco/'
         elif dataset == 'idrid':
             if kaggle:
-                return '../input/IDRID_Segmentation/Original_Images/'
+                return '../input/idrid-segmentation/IDRID_Segmentation/Original_Images/'
             else:
                 return '/Volumes/backup/Users/jcoral/Desktop/DRnetwork_research/IDRID_Segmentation'
         else:
